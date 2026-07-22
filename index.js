@@ -3,10 +3,10 @@ require("dotenv").config();
 const { App } = require("@slack/bolt");
 
 const app = new App({
-  token: "xoxb-2210535565-11642602811635-e9mGo1Bfp6Ai6rPHzOJ0MzC9",
-  appToken: "xapp-1-A0BJWFZ60SF-11677133734224-44c97d22e918435f0da09449a743e703e26a9dde830c7c59c79a4c9e1f3bd38a",
+  token: process.env.SLACK_BOT_TOKEN,
+  appToken: process.env.SLACK_APP_TOKEN,
   socketMode: true
-});
+})
 
 app.command("/goy-ping", async ({ command, ack, respond }) => {
   const start = Date.now();
@@ -21,7 +21,7 @@ app.command('/goy-meaningoflife', async ({ command, ack, respond }) => {
   const responses = [
     "The meaning of life to me is to find a purpose in this never ending misery.",
     "The meaning of life is 42!"
-  ];
+  ]
 
   const randomIndex = Math.floor(Math.random() * responses.length);
   const chosenResponse = responses[randomIndex];
@@ -34,7 +34,7 @@ app.command('/goy-meaningoflife', async ({ command, ack, respond }) => {
   } catch (error) {
     console.error('something went horrible worng, like there was and explosion wrong:', error);
   }
-});
+})
 
 app.command('/goy-fact', async ({ command, ack, respond }) => {
   await ack();
@@ -44,7 +44,7 @@ app.command('/goy-fact', async ({ command, ack, respond }) => {
       headers: {
         "Accept": "application/json"
       }
-    });
+    })
     
     if (!apiResponse.ok) {
       throw new Error(`API responded with status code ${apiResponse.status}`);
@@ -56,12 +56,12 @@ app.command('/goy-fact', async ({ command, ack, respond }) => {
     await respond({ 
       text: `*Did you know?* \n${randomFact}`,
       response_type: "in_channel" 
-    });
+    })
   } catch (error) {
     console.error('Error fetching random fact from API:', error.message || error);
     await respond({ text: "Sorry, the facts service is currently unavailable or returning an error page. Please try again later!" });
   }
-});
+})
 
 app.command('/goy-coin', async ({ command, ack, respond }) => {
   await ack();
@@ -78,17 +78,17 @@ app.command('/goy-coin', async ({ command, ack, respond }) => {
   } catch (error) {
     console.error('Error running coinflip command:', error);
   }
-});
+})
 
 (async () => {
   await app.start(process.env.PORT || 3000);
   console.log("bot is not just running but its sprinting to deliver some anwser to your questions!");
-})();
+})()
 
 process.on('uncaughtException', (err) => {
   console.error('The bot crashed due to an unhandled error:', err);
-});
+})
 
 process.on('unhandledRejection', (reason, promise) => {
   console.error('Unhandled Rejection at:', promise, 'reason:', reason);
-});
+})
