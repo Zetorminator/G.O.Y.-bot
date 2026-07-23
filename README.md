@@ -1,4 +1,3 @@
-idk what to write here so ill paste the description of my bot and its devlog
 G.O.Y. bot anwsers philosophical questions , helps you make decisons with coinflip, and it also teaches random facts if you ask him nicely.
 
 devlog #1
@@ -28,3 +27,11 @@ the execution channel.
 How it works: The command uses an array containing
 two possible results, [“Heads”, “Tails”], and randomly
 selects one of them using a mathematical array index.
+
+
+Credits
+
+API Provider: Joseph Paul (jsphpl) for providing free-to-use [Random Useless Facts API] 
+
+AI Attribution
+Artificial Intelligence (AI) assistance was used exclusively to help write, structure, and handle errors for the `/goy-fact` command integration (connecting to the jsph.pl API). All other features, architecture setups, and command logic were developed independently.
